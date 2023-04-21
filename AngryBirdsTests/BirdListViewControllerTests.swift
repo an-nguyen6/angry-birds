@@ -27,7 +27,8 @@ class BirdListViewControllerTests: XCTestCase {
         XCTAssertNotNil(navigationController.view)
         XCTAssertNotNil(self.systemUnderTest.view)
     }
-
+    
+    
     func testTableView_loadsBirds() {
         //Given
         let mockBirdService = MockBirdService()
@@ -49,6 +50,7 @@ class BirdListViewControllerTests: XCTestCase {
         //Then
         XCTAssertEqual(mockBirds.count, self.systemUnderTest.flock.count)
         XCTAssertEqual(mockBirds.count, self.systemUnderTest.tableView.numberOfRows(inSection: 0))
+
     }
     
     class MockBirdService: BirdService {

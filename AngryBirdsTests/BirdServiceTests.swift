@@ -11,14 +11,26 @@ import XCTest
 
 class BirdServiceTests: XCTestCase {
     var systemUnderTest: BirdService!
+    var listViewController: BirdListViewController!
 
     override func setUp() {
         self.systemUnderTest = BirdService()
+        
+        super.setUp()
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let navigationController = storyboard.instantiateInitialViewController() as! UINavigationController
+        self.listViewController = navigationController.topViewController as? BirdListViewController
+        
+        UIApplication.shared.windows
+            .filter { $0.isKeyWindow }
+            .first!
+            .rootViewController = self.listViewController
+        
+        XCTAssertNotNil(navigationController.view)
+        XCTAssertNotNil(self.listViewController.view)
     }
 
-    override func tearDown() {
-        self.systemUnderTest = nil
-    }
 
     func testAPI_returnsSuccessfulResult() {
         //Given
@@ -39,4 +51,5 @@ class BirdServiceTests: XCTestCase {
         XCTAssertNotNil(birds)
         XCTAssertNil(error)
     }
+
 }
